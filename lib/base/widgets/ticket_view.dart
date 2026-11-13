@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ticket_app/base/widgets/app_layoutbuilder_widget.dart';
+import 'package:ticket_app/base/widgets/big_circle.dart';
 import 'package:ticket_app/base/widgets/big_dot.dart';
+import 'package:ticket_app/base/widgets/text_style_fourth.dart';
+import 'package:ticket_app/base/widgets/text_style_third.dart';
 
 import '../res/styles/app_styles.dart';
 
@@ -13,11 +16,12 @@ class TicketView extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width * 0.85,
-      height: 219,
+      height: 189,
       child: Container(
         margin: const EdgeInsets.only(right: 16),
         child: Column(
           children: [
+            // blue part of the ticket
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -31,9 +35,7 @@ class TicketView extends StatelessWidget {
                     //Show departure and destination with Icons first line
                     Row(
                       children: [
-                        Text("NYC",
-                            style: AppStyles.headLineStyle3
-                                .copyWith(color: Colors.white)),
+                        const TextStyleThird(text: "NYC"),
                         Expanded(child: Container()),
                         const BigDot(),
                         Expanded(
@@ -57,9 +59,7 @@ class TicketView extends StatelessWidget {
                         )),
                         const BigDot(),
                         Expanded(child: Container()),
-                        Text("LDN",
-                            style: AppStyles.headLineStyle3
-                                .copyWith(color: Colors.white)),
+                        const TextStyleThird(text: "LDN"),
                       ],
                     ),
                     //Show departure and destination with time
@@ -68,29 +68,38 @@ class TicketView extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text("New York",
-                            style: AppStyles.headLineStyle3
-                                .copyWith(color: Colors.white)),
+                        const SizedBox(
+                          width: 100,
+                          child:TextStyleFourth(text: "New-York"),
+                        ),
                         Expanded(child: Container()),
-                        Text("8H 30M",
-                            style: AppStyles.headLineStyle3
-                                .copyWith(color: Colors.white)),
+                        const TextStyleFourth(text: "8H 30M"),
                         Expanded(child: Container()),
-                        Text("London",
-                            style: AppStyles.headLineStyle3
-                                .copyWith(color: Colors.white)),
+                        const SizedBox(
+                          width: 100,
+                          child: TextStyleFourth(text: "London", align: TextAlign.end,),
+                          //),
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
             ),
+            // circles and dots
             Container(
-                height: 20,
-                decoration: BoxDecoration(
-                  color: AppStyles.ticketOrange,
-                  //borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(21), bottomRight: Radius.circular(21))
-                )),
+                color: AppStyles.ticketOrange,
+                child: const Row(
+                  children: [
+                    BigCircle(isRight: false,),
+                    Expanded(child: AppLayoutBuilderWidget(
+                      randomDivider: 16, width: 6,
+                    )),
+                    BigCircle( isRight: true,)
+                  ],
+                ),
+            ),
+            // orange part of the ticket
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -104,33 +113,28 @@ class TicketView extends StatelessWidget {
                     //Show departure and destination with Icons first line
                     Row(
                       children: [
-                        Text("1 MAY",
-                            style: AppStyles.headLineStyle3
-                                .copyWith(color: Colors.white)),
+                        const TextStyleThird(text: "1 MAY"),
                         Expanded(child: Container()),
                         //const BigDot(),
                         Expanded(
                             child: Container(
-                          child: Stack(
+                          child: const Stack(
                             children: [
-                              const SizedBox(
-                                height: 24,
-                                child: AppLayoutBuilderWidget(
-                                  randomDivider: 6,
-                                ),
-                              ),
+                              //const SizedBox(
+                                //height: 24,
+                                //child: AppLayoutBuilderWidget(
+                                  //randomDivider: 6,
+                                //),
+                              //),
                               Center(
-                                  child: Text("08:00 AM",
-                                      style: AppStyles.headLineStyle3
-                                          .copyWith(color: Colors.white)))
+                                  child: TextStyleThird(text: "08:00AM")
+                              )
                             ],
                           ),
                         )),
                         //const BigDot(),
                         Expanded(child: Container()),
-                        Text("23",
-                            style: AppStyles.headLineStyle3
-                                .copyWith(color: Colors.white)),
+                        const TextStyleThird(text: "23"),
                       ],
                     ),
                     //Show departure and destination with time
@@ -140,15 +144,15 @@ class TicketView extends StatelessWidget {
                     Row(
                       children: [
                         Text("Date",
-                            style: AppStyles.headLineStyle3
+                            style: AppStyles.headLineStyle4
                                 .copyWith(color: Colors.white)),
                         Expanded(child: Container()),
                         Text("Departure time",
-                            style: AppStyles.headLineStyle3
+                            style: AppStyles.headLineStyle4
                                 .copyWith(color: Colors.white)),
                         Expanded(child: Container()),
                         Text("Number",
-                            style: AppStyles.headLineStyle3
+                            style: AppStyles.headLineStyle4
                                 .copyWith(color: Colors.white)),
                       ],
                     ),
