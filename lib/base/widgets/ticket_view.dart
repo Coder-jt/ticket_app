@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ticket_app/base/widgets/app_column_text_layout.dart';
 import 'package:ticket_app/base/widgets/app_layoutbuilder_widget.dart';
 import 'package:ticket_app/base/widgets/big_circle.dart';
 import 'package:ticket_app/base/widgets/big_dot.dart';
@@ -9,7 +10,9 @@ import 'package:ticket_app/base/widgets/text_style_third.dart';
 import '../res/styles/app_styles.dart';
 
 class TicketView extends StatelessWidget {
-  const TicketView({super.key});
+  final Map<String, dynamic> ticket;
+  final bool wholeScreen;
+  const TicketView({super.key, required this.ticket, this.wholeScreen=false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class TicketView extends StatelessWidget {
       width: size.width * 0.85,
       height: 189,
       child: Container(
-        margin: const EdgeInsets.only(right: 16),
+        margin: EdgeInsets.only(right: wholeScreen == true ? 0: 16),
         child: Column(
           children: [
             // blue part of the ticket
@@ -35,7 +38,7 @@ class TicketView extends StatelessWidget {
                     //Show departure and destination with Icons first line
                     Row(
                       children: [
-                        const TextStyleThird(text: "NYC"),
+                        TextStyleThird(text: ticket["from"]["code"],),
                         Expanded(child: Container()),
                         const BigDot(),
                         Expanded(
@@ -59,7 +62,7 @@ class TicketView extends StatelessWidget {
                         )),
                         const BigDot(),
                         Expanded(child: Container()),
-                        const TextStyleThird(text: "LDN"),
+                        TextStyleThird(text: ticket["to"]["code"]),
                       ],
                     ),
                     //Show departure and destination with time
@@ -68,16 +71,16 @@ class TicketView extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        const SizedBox(
+                        SizedBox(
                           width: 100,
-                          child:TextStyleFourth(text: "New-York"),
+                          child:TextStyleFourth(text: ticket["from"]["name"]),
                         ),
                         Expanded(child: Container()),
-                        const TextStyleFourth(text: "8H 30M"),
+                        TextStyleFourth(text: ticket["flying_time"]),
                         Expanded(child: Container()),
-                        const SizedBox(
+                        SizedBox(
                           width: 100,
-                          child: TextStyleFourth(text: "London", align: TextAlign.end,),
+                          child: TextStyleFourth(text: ticket["to"]["name"], align: TextAlign.end,),
                           //),
                         ),
                       ],
@@ -112,48 +115,11 @@ class TicketView extends StatelessWidget {
                   children: [
                     //Show departure and destination with Icons first line
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const TextStyleThird(text: "1 MAY"),
-                        Expanded(child: Container()),
-                        //const BigDot(),
-                        Expanded(
-                            child: Container(
-                          child: const Stack(
-                            children: [
-                              //const SizedBox(
-                                //height: 24,
-                                //child: AppLayoutBuilderWidget(
-                                  //randomDivider: 6,
-                                //),
-                              //),
-                              Center(
-                                  child: TextStyleThird(text: "08:00AM")
-                              )
-                            ],
-                          ),
-                        )),
-                        //const BigDot(),
-                        Expanded(child: Container()),
-                        const TextStyleThird(text: "23"),
-                      ],
-                    ),
-                    //Show departure and destination with time
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    Row(
-                      children: [
-                        Text("Date",
-                            style: AppStyles.headLineStyle4
-                                .copyWith(color: Colors.white)),
-                        Expanded(child: Container()),
-                        Text("Departure time",
-                            style: AppStyles.headLineStyle4
-                                .copyWith(color: Colors.white)),
-                        Expanded(child: Container()),
-                        Text("Number",
-                            style: AppStyles.headLineStyle4
-                                .copyWith(color: Colors.white)),
+                        AppColumnTextLayout(topText: ticket["date"], bottomText: "Date", alignment: CrossAxisAlignment.start,),
+                        AppColumnTextLayout(topText: ticket["departure_time"], bottomText: "Departure time", alignment: CrossAxisAlignment.center),
+                        AppColumnTextLayout(topText: ticket["number"].toString(), bottomText: "Number", alignment: CrossAxisAlignment.end,),
                       ],
                     ),
                   ],
