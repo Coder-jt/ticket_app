@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ticket_app/base/widgets/app_double_text.dart';
 import 'package:ticket_app/base/widgets/ticket_view.dart';
+import 'package:ticket_app/screens/widgets/hotel.dart';
 
 import '../base/res/media.dart';
 import '../base/res/styles/app_styles.dart';
@@ -23,6 +24,7 @@ class HomeScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   //Row styling
@@ -75,9 +77,7 @@ class HomeScreen extends StatelessWidget {
                   smallText: "View All",
                   func: () => Navigator.pushNamed(context, "all_tickets"),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20,),
                  // Ticket Scroll
                  SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -86,18 +86,21 @@ class HomeScreen extends StatelessWidget {
                       children: ticketList.map((singleTicket)=> TicketView(ticket: singleTicket)).toList(),
                 ),
                     ),
-                const SizedBox(
-                  height: 40,
-                ),
+                const SizedBox(height: 40,),
                 //Hotels
                 AppDoubleText(
                   bigText: "Hotels",
                   smallText: "View All",
                   func: () {}
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20,),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                    child: Row(
+                //take 2 from list, convert 2 maps to Tickets
+                children: hotelList.take(2).map((singleHotel)=> Hotel(hotel: singleHotel)).toList(),
+                    ),
+                  )
               ],
             ),
           ),
